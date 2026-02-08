@@ -1,5 +1,5 @@
 {
-  "name": "red-social-nodejs",
+  "name": "red-social",
   "version": "1.0.0",
   "description": "Proyecto del curso avanzado de backend con NodeJS",
   "main": "index.js",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/CodingCarlos/proyecto-backend-node-platzi#readme",
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.22.1"
+  },
+  "keywords": []
 }
