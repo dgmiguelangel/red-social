@@ -1,5 +1,5 @@
 exports.success = function (req, res, message, status) {
-    let statusCode = status || 200;
+    let statusCode = status || 201;
     let statusMessage = message || '';
 
     res.status(status).send({
