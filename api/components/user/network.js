@@ -7,7 +7,7 @@ const router = express.Router(); // el router es un objeto que nos permite manej
 
 router.get('/', function (req, res) {
     const lista = Controller.list();
-    response.success(req, res, 'Todo correcto', 200);       
+    response.success(req, res, lista, 200);       
 })
 
 module.exports = router;
