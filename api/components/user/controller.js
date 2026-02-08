@@ -1,5 +1,4 @@
 //const store = require('../../../store/dummy');
-
 const TABLA = 'user';
 
 module.exports = function (injectedStore) {
@@ -16,8 +15,18 @@ module.exports = function (injectedStore) {
         return store.get(TABLA, id);
     }
 
+    function upsert(id, name) {
+        return store.upsert(TABLA, { id, name });
+    }
+
+    function remove(id) {
+        return store.remove(TABLA, id);
+    }
+
     return {
         list,
-        get
+        get,
+        remove,
+        upsert,
     };
 }

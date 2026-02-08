@@ -8,10 +8,10 @@ const router = express.Router(); // el router es un objeto que nos permite manej
 
 router.get('/', function (req, res) {
     controller.list()
-        .then((lista) => {
+        .then((lista) => { // el controller.list() es una función que devuelve una promesa, por eso utilizamos el .then() para manejar la respuesta de la promesa, si la promesa se resuelve correctamente, se ejecuta la función que recibe la lista de usuarios como parámetro, y si la promesa se rechaza, se ejecuta la función que recibe el error como parámetro.
             response.success(req, res, lista, 200);
         })
-        .catch((err) => {
+        .catch((err) => { // el .catch() es una función que se ejecuta cuando la promesa se rechaza, recibe el error como parámetro, y en este caso, utilizamos la función response.error() para enviar una respuesta de error al cliente, con el mensaje del error y un código de estado 500.
             response.error(req, res, err.message, 500);
         });    
 });
@@ -23,8 +23,27 @@ router.get('/:id', function (req, res) {
         })
         .catch((err) => {
             response.error(req, res, err.message, 500);
+        });    
+});
+
+
+router.get("/upsert/:id/:name", (req, res) => {
+    controller.upsert(req.params.id, req.params.name)
+        .then((user) => {
+            response.success(req, res, user, 200)
+        }).catch(err => {
+            response.error(req, res, err.message, 500)
+        })
+})
+
+router.get('/delete/:id', function (req, res) {
+    controller.remove(req.params.id)
+        .then(() => {
+            response.success(req, res, `Usuario ${req.params.id} eliminado`, 200);
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
         });
-    
 });
 
 module.exports = router;
