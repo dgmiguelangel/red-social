@@ -6,23 +6,14 @@ module.exports = function (injectedStore) {
         store = require('../../../store/dummy');
     }
 
-    function insert(data) {
-        const authData = {
-            id: data.id,
-        }
-
-        if (data.username) {
-            authData.username = data.username;
-        }
-
-        if (data.password) {
-            authData.password = data.password;
-        }
-
-        return store.insert(TABLA, authData);
+    function list() {
+        return store.list(TABLA);
     }
 
-    function update(data) {
+    function upsert(data, operation) {
+        console.log('operation', operation);
+        console.log('data', data);
+
         const authData = {
             id: data.id,
         }
@@ -35,11 +26,15 @@ module.exports = function (injectedStore) {
             authData.password = data.password;
         }
 
-        return store.update(TABLA, authData);
+        if (operation === 'insert') {
+            return store.insert(TABLA, authData);
+        } else if (operation === 'update') {
+            return store.update(TABLA, authData);
+        }   
     }
 
     return {
-        insert,
-        update
+        list,
+        upsert
     };
 };

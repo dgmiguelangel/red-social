@@ -5,12 +5,14 @@ const swaggerDocument = require('./swagger.json');
 
 const config = require('../config.js');
 const user = require('./components/user/network');
+const auth = require('./components/auth/network');
 
 const app = express(); // creamos el servidor
 app.use(bodyParser.json()); // para que el servidor pueda entender el formato json
 
 // ROUTER
 app.use('/api/user', user); // cada vez que se haga una petición a /api/user, se va a ejecutar el router que se encuentra en ./components/user/network.js
+app.use('/api/auth', auth);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(config.api.port, () => {

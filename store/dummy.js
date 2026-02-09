@@ -1,6 +1,3 @@
-const { nanoid } = require("nanoid");
-const user = require("../api/components/user");
-
 const db = {
     'user': [
         { id: '1', name: 'Carlos', username: 'carlos' },

@@ -26,11 +26,11 @@ module.exports = function (injectedStore) {
         }
 
         if (body.password || body.username) {
-            await auth.insert({
-                user_id: user.id,
+            await auth.upsert({
+                id: user.id,
                 username: user.username,
                 password: body.password,
-            })
+            }, 'insert')
         }
             
         return store.insert(TABLA, user);
@@ -44,11 +44,11 @@ module.exports = function (injectedStore) {
         }
 
         if (body.password || body.username) {
-            await auth.update({
+            await auth.upsert({
                 id: user.id,
                 username: user.username,
                 password: body.password,
-            })
+            }, 'update')
         }
             
         return store.update(TABLA, user);
