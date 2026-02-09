@@ -1,9 +1,10 @@
 const { nanoid } = require("nanoid");
+const user = require("../api/components/user");
 
 const db = {
     'user': [
-        { id: '1', name: 'Carlos' },
-        { id: '2', name: 'Ana' },
+        { id: '1', name: 'Carlos', username: 'carlos' },
+        { id: '2', name: 'Ana', username: 'ana' },
     ],
 };
 
@@ -16,16 +17,18 @@ async function get(tabla, id) {
     return col.filter(item => item.id === id)[0] || null;
 }
 
-async function upsert(tabla, data) {
-    if(data.id){
-        const index = db[tabla].findIndex(item => item.id === data.id);
-        if(index !== -1){
-            db[tabla][index] = data;
-            return;
-        }
-    } else {
-        data.id = nanoid();
-        db[tabla].push(data);
+async function insert(tabla, data) {
+    if (!db[tabla]) {
+        db[tabla] = [];
+    }
+    db[tabla].push(data);    
+    return;
+}
+
+async function update(tabla, data) {   
+    const index = db[tabla].findIndex(item => item.id === data.id);
+    if(index !== -1){
+        db[tabla][index] = data;        
         return;
     }
 }
@@ -38,6 +41,32 @@ async function remove(tabla, id) {
 module.exports = {
     list,
     get,
-    upsert,
-    remove,
+    insert,
+    update,
+    remove
 };
+
+/*
+async function upsert(tabla, data) {
+    if (!db[tabla]) {
+        db[tabla] = [];
+    }
+
+    db[tabla].push(data);
+
+    console.log(db);
+}
+async function upsert(tabla, data) {
+    if(data.id){
+        const index = db[tabla].findIndex(item => item.id === data.id);
+        if(index !== -1){
+            db[tabla][index] = data;
+            return;
+        }
+    } else {
+        data.id = nanoid();       
+        db[tabla].push(data);
+        return;
+    }
+}
+*/

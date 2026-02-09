@@ -9,8 +9,8 @@ const router = express.Router(); // el router es un objeto que nos permite manej
 // Routes
 router.get('/', list)
 router.get('/:id', get);
-router.post('/', upsert);
-router.put('/', upsert);
+router.post('/', insert);
+router.put('/', update);
 router.delete('/:id', remove);
 
 // Internal functions
@@ -36,8 +36,19 @@ function get(req, res) {
     
 }
 
-function upsert(req, res) {
-    controller.upsert(req.body)
+function insert(req, res) {
+    controller.insert(req.body)
+        .then((user) => {
+            response.success(req, res, user, 201);
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
+        });
+    
+}
+
+function update(req, res) {
+    controller.update(req.body)
         .then((user) => {
             response.success(req, res, user, 201);
         })
