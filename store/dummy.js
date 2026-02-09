@@ -1,3 +1,5 @@
+const { nanoid } = require("nanoid");
+
 const db = {
     'user': [
         { id: '1', name: 'Carlos' },
@@ -15,7 +17,17 @@ async function get(tabla, id) {
 }
 
 async function upsert(tabla, data) {
-    db[tabla].push(data);
+    if(data.id){
+        const index = db[tabla].findIndex(item => item.id === data.id);
+        if(index !== -1){
+            db[tabla][index] = data;
+            return;
+        }
+    } else {
+        data.id = nanoid();
+        db[tabla].push(data);
+        return;
+    }
 }
 
 async function remove(tabla, id) {
