@@ -1,7 +1,7 @@
 const db = {
     'user': [
-        { id: '1', name: 'Carlos', username: 'carlos' },
-        { id: '2', name: 'Ana', username: 'ana' },
+        { id: '1', name: 'Carlos' },
+        { id: '2', name: 'Ana'},
     ],
 };
 
@@ -35,12 +35,21 @@ async function remove(tabla, id) {
     db[tabla] = col.filter(item => item.id !== id);
 }
 
+async function query(tabla, q) {
+    let col = await list(tabla);
+    let keys = Object.keys(q);
+    let key = keys[0];
+    
+    return col.filter(item => item[key] === q[key])[0] || null;
+}
+
 module.exports = {
     list,
     get,
     insert,
     update,
-    remove
+    remove,
+    query
 };
 
 /*

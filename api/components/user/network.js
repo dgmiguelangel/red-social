@@ -1,5 +1,7 @@
 const express = require('express');
 
+const secure = require('./secury');
+
 const response = require('../../../network/response');
 const controller = require('./index');
 //const controller = require('./controller');
@@ -10,7 +12,7 @@ const router = express.Router(); // el router es un objeto que nos permite manej
 router.get('/', list)
 router.get('/:id', get);
 router.post('/', insert);
-router.put('/', update);
+router.put('/', secure('update'), update);
 router.delete('/:id', remove);
 
 // Internal functions
