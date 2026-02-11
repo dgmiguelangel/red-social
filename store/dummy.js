@@ -39,7 +39,7 @@ async function query(tabla, q) {
     let col = await list(tabla);
     let keys = Object.keys(q);
     let key = keys[0];
-    
+    // return col.filter(item => item[username] === q[username])[0] || null;
     return col.filter(item => item[key] === q[key])[0] || null;
 }
 

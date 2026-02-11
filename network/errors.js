@@ -1,5 +1,6 @@
 const response = require('./response');
 
+// Middleware para manejar errores
 function errors(err, req, res, next) {
     console.error('[error]', err);
 
