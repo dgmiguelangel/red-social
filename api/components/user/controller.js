@@ -7,7 +7,7 @@ const TABLA = 'user';
 module.exports = function (injectedStore) {
     let store = injectedStore;
     if (!store) {
-        store = require('../../../store/mysql');
+        store = require('../../../store/dummy');
     }
 
     function list() {
@@ -66,13 +66,22 @@ module.exports = function (injectedStore) {
         });
     }
 
+    async function following(user) {
+        const join = {}
+        join[TABLA] = 'user_to'; // { user: 'user_to' }
+        const query = { user_from: user };
+		
+		return await store.query(TABLA + '_follow', query, join);
+	}
+
     return {
         list,
         get,        
         insert,
         update,
         remove,
-        follow
+        follow,
+        following
     };
 }
 

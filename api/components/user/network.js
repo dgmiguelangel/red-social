@@ -11,6 +11,7 @@ const router = express.Router(); // el router es un objeto que nos permite manej
 // Routes
 router.get('/', list)
 router.post('/follow/:id', secure('follow'), follow);
+router.get('/:id/following', following);
 router.get('/:id', get);
 router.post('/', insert);
 router.put('/', secure('update'), update);
@@ -67,6 +68,14 @@ function follow(req, res, next) {
             response.success(req, res, data, 201);
         })
         .catch(next);
+}
+
+function following(req, res, next) {
+	return controller.following(req.params.id)
+		.then( (data) => {
+			return response.success(req, res, data, 200);
+		})
+		.catch(next);
 }
 
 module.exports = router;
