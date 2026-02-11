@@ -7,6 +7,7 @@ const router = express.Router();
 
 // Routes
 router.get('/', list);
+router.post('/', insert);
 
 // functions
 function list(req, res, next) {
@@ -15,6 +16,14 @@ function list(req, res, next) {
             response.success(req, res, data, 200);
         })
         .catch(next);
+}
+
+function insert(req, res, next) {
+    controller.insert(req.body)
+        .then((user) => {
+            response.success(req, res, user, 201);
+        })
+        .catch(next);    
 }
 
 module.exports = router;
