@@ -23,7 +23,12 @@ const check = {
             //throw new Error('No puedes hacer esto');
         }
     },
+    
+    logged: function(req, owner) {    
+        const decoded = decodeHeader(req);
+    }
 }
+
 
 function getToken(auth) {
     if (!auth) {

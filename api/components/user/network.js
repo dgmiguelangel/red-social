@@ -1,6 +1,6 @@
 const express = require('express');
 
-const secure = require('./secury');
+const secure = require('./secure');
 
 const response = require('../../../network/response');
 const controller = require('./index');
@@ -10,6 +10,7 @@ const router = express.Router(); // el router es un objeto que nos permite manej
 
 // Routes
 router.get('/', list)
+router.post('/follow/:id', secure('follow'), follow);
 router.get('/:id', get);
 router.post('/', insert);
 router.put('/', secure('update'), update);
@@ -59,6 +60,14 @@ function remove(req, res, next) {
             response.success(req, res, `Usuario ${req.params.id} eliminado`, 200);
         })
         .catch(next);}
+
+function follow(req, res, next) {
+    controller.follow(req.user.id, req.params.id)
+        .then(data => {
+            response.success(req, res, data, 201);
+        })
+        .catch(next);
+}
 
 module.exports = router;
 
