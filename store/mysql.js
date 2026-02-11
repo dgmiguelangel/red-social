@@ -73,6 +73,15 @@ function update(table, data) {
     })
 }
 
+function query(table, query) {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE username='${query}'`, (err, res) => {
+            if (err) return reject(err);
+            resolve(res[0] || null);
+        })
+    })
+}
+
 function query(table, query, join) {
     let joinQuery = '';
     if (join) {
@@ -82,7 +91,7 @@ function query(table, query, join) {
     }
 
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ${table} ${joinQuery} WHERE ${table}.?`, query, (err, res) => {
+        connection.query(`SELECT * FROM ${table} ${joinQuery}`, query, (err, res) => {
             if (err) return reject(err);
             resolve(res[0] || null);
         })
