@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 
 const auth = require('../../../auth');
+const user = require('../user');
 const TABLA = 'auth';
 
 module.exports = function (injectedStore) {
@@ -10,7 +11,8 @@ module.exports = function (injectedStore) {
     }
 
     async function login(username, password) {
-        const data = await store.query(TABLA, { username: username });  
+        //const data = await store.query(TABLA, { username: username }); 
+        const data = await store.query(TABLA, username); 
         return bcrypt.compare(password, data.password)
             .then(sonIguales => {
                 if (sonIguales === true) {
@@ -50,9 +52,14 @@ module.exports = function (injectedStore) {
         }   
     }
 
+    function remove(id) {
+        return store.remove(TABLA, id);
+    }
+
     return {
         login,
         list,
-        upsert
+        upsert,
+        remove
     };
 };

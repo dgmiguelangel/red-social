@@ -7,7 +7,7 @@ const TABLA = 'user';
 module.exports = function (injectedStore) {
     let store = injectedStore;
     if (!store) {
-        store = require('../../../store/dummy');
+        store = require('../../../store/mysql');
     }
 
     function list() {
@@ -54,7 +54,8 @@ module.exports = function (injectedStore) {
         return store.update(TABLA, user);
     }   
 
-    function remove(id) {
+    async function remove(id) {
+        await auth.remove(id);
         return store.remove(TABLA, id);
     }
 
