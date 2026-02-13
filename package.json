@@ -1,5 +1,5 @@
 {
-  "name": "red-social",
+  "name": "red-social-microservicios",
   "version": "1.0.0",
   "description": "Proyecto del curso avanzado de backend con NodeJS",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CodingCarlos/proyecto-backend-node-platzi.git"
+    "url": "git+https://github.com/dgmiguelangel/red-social-microservicios.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CodingCarlos/proyecto-backend-node-platzi/issues"
+    "url": "https://github.com/dgmiguelangel/red-social-microservicios/issues"
   },
-  "homepage": "https://github.com/CodingCarlos/proyecto-backend-node-platzi#readme",
+  "homepage": "https://github.com/dgmiguelangel/red-social-microservicios#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.2",
